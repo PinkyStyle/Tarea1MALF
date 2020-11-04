@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Tarea1P3:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -19,7 +24,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b4918b04-c596-41e5-9d42-ac6e6f44a2d1" name="Default Changelist" comment="" />
+    <list default="true" id="b4918b04-c596-41e5-9d42-ac6e6f44a2d1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Tarea1P3_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tarea1P3/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tarea1P3/Main.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,8 +44,18 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\cacac\OneDrive\Documentos\Documentos U\2020-2\Maquinas Abstractas y Lenguajes Formales\Tareas\Tarea 1\Tarea1MALF\Tarea1P3\src" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
@@ -49,6 +68,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -59,8 +83,14 @@
       <option name="presentableId" value="Default" />
       <updated>1604087793824</updated>
       <workItem from="1604087794977" duration="7000" />
+      <workItem from="1604249664509" duration="45000" />
+      <workItem from="1604249774118" duration="8025000" />
+      <workItem from="1604361639548" duration="2718000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -72,5 +102,32 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1114" y="422" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1604249878015">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1114" y="422" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604249878015" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1604261768624">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604261768624" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1604261768623">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604261768623" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1604261768623">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604261768623" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1604261768624">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604261768624" />
+    <state x="636" y="174" key="SettingsEditor" timestamp="1604249898925">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="636" y="174" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1604249898925" />
   </component>
 </project>
