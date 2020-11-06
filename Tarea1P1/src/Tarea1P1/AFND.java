@@ -6,21 +6,20 @@ public class AFND {
 
     private ArrayList<String> estados;
     private ArrayList<String> alfabeto;
-    private ArrayList<Transicion> transiciones;
-    private Postfijo postijo;
+    private ArrayList<Transicion> transiciones;   
+    private String estadoInicial;
+    private String estadoFinal; 
     private int numEstado;
 
     public AFND(){
         this.estados = new ArrayList<>();
         this.alfabeto = new ArrayList<>();
-        this.transiciones = new ArrayList<>();
-        //this.postijo = new Postfijo();
+        this.transiciones = new ArrayList<>();        
     }
 
     public void crearAFND(ArrayList<String> cadena){
-        this.numEstado = 0;
+        this.numEstado = 0;        
         for(int i = 0; i < cadena.size(); i++){            
-
             char c = cadena.get(i).charAt(0);
             int ascii = (int)c;
 
@@ -163,16 +162,20 @@ public class AFND {
                 }
                 String sinSalida = "";
                 int contador = 0;
+                String fin = "";
                 aux = false;
                 for(int j = this.transiciones.size()-1; j >=0 && !aux ;j--){
                     Transicion t = this.transiciones.get(j);
                     if(this.verificarSalida(t.getTermino())){
                         if(contador == 0){
                             contador++;
+                            fin = t.getTermino();
                         }
                         else{
-                            sinSalida = t.getTermino();   
-                            aux = true;                         
+                            if(!fin.equals(t.getTermino())){
+                                sinSalida = t.getTermino();                                
+                                aux = true;   
+                            }                            
                         }
                     }
                 }
@@ -240,40 +243,11 @@ public class AFND {
                 this.numEstado++;
                 this.transiciones.add(new Transicion(sinSalida1.getTermino(),"_","q"+this.numEstado));
                 this.transiciones.add(new Transicion(sinSalida2.getTermino(),"_","q"+this.numEstado));
-                this.numEstado++;
-                // anteriorSalida+=2;
-                // int anterior = Integer.parseInt(sinEntrada1.getInicio().replace("q",""));
-                // anterior+=1;
-                // sinEntrada1.setInicio("q"+anterior);
-
-                // anterior = Integer.parseInt(sinEntrada2.getInicio().replace("q",""));
-                // anterior+=1;
-                // sinEntrada2.setInicio("q"+anterior);
-
-                // Transicion salida1 = new Transicion("q"+anteriorEntrada,"_",sinEntrada1.getInicio());                
-                // Transicion salida2 = new Transicion("q"+anteriorEntrada,"_",sinEntrada2.getInicio());                                
-
-                // anterior = Integer.parseInt(sinSalida1.getTermino().replace("q",""));
-                // anterior+=1;
-                // sinSalida1.setTermino("q"+anterior);
-                // anterior = Integer.parseInt(sinSalida2.getTermino().replace("q",""));
-                // anterior+=1;
-                // sinSalida2.setTermino("q"+anterior);
-                // Transicion entrada1 = new Transicion(sinSalida1.getTermino(),"_","q"+anteriorSalida);
-                // Transicion entrada2 = new Transicion(sinSalida2.getTermino(),"_","q"+anteriorSalida);
-
-
-                
-                // this.transiciones.add(salida2);
-                // this.transiciones.add(salida1);                
-                // this.transiciones.add(entrada2);
-                // this.transiciones.add(entrada1);
-                // this.numEstado+=2;                
-            }
-            else if(cadena.get(i).equals(" ")){
-
-            }            
-        }
+                this.numEstado++;               
+            }      
+        }     
+        this.obtenerEstadoInicial();
+        this.obtenerEstadoFinal();   
     }
 
     public void crearTransicion(String letra){
@@ -287,7 +261,6 @@ public class AFND {
         Transicion t = new Transicion(inicio, letra, termino);
         this.transiciones.add(t);
     }
-
 
     public boolean verificarEntrada(String entrada){
         
@@ -308,6 +281,14 @@ public class AFND {
         return true;
     }    
 
+    public void obtenerEstadoInicial(){
+        for(int i = 0; i < this.estados.size(); i++){    
+            String estado = this.estados.get(i);
+            if(verificarEntrada(estado)){
+                this.estadoInicial = estado;
+                break;
+            }
+        }
     public void imprimirAFND() {
         System.out.println("AFND M: ");
 
@@ -343,20 +324,35 @@ public class AFND {
         System.out.println("F={}");
     }
 
-    public void Concatenacion(){
-
+    public void obtenerEstadoFinal(){
+        for(int i = 0; i < this.estados.size(); i++){
+            String estado = this.estados.get(i);
+            if(verificarSalida(estado)){
+                this.estadoFinal = estado;
+                break;
+            }
+        }
     }
 
-    public void Union(){
+    public void mostrarAFND() {
+        System.out.println("AFND M:");
+        String alfabeto = "K={";
+        for(int i = 0; i < this.estados.size(); i++){
+            if(i != this.estados.size()-1){
+                alfabeto = alfabeto+this.estados.get(i)+",";
+            }
+            else{
+                alfabeto = alfabeto+this.estados.get(i)+"}";
+            }
+            
+        }
+        System.out.println(alfabeto);
+        System.out.println("delta:");
+        for(Transicion t: this.transiciones){
+            System.out.println(t.toString());
+        }
+        System.out.println("s="+this.estadoInicial);
+        System.out.println("F={"+this.estadoFinal+"}");
 
     }
-
-    public void Kleene(){
-
-    }
-
-    public void mostrarAFND(){
-
-    }
-
 }

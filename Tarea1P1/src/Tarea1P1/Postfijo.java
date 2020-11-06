@@ -1,20 +1,16 @@
 package Tarea1P1;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Stack;
 
 public class Postfijo {
 
     private ArrayList<String> salida;
-    private Stack<String> operadores;
-    private HashMap<String, Integer> Precedencias;
+    private Stack<String> operadores;    
 
     public Postfijo(){
         this.salida = new ArrayList<>();
-        this.operadores = new Stack<>();
-        this.Precedencias = new HashMap<>();
-        this.InfijaAPostfija("((a|(b*.c))");
+        this.operadores = new Stack<>();                
     }
 
     public int getPrecedencia(String s){

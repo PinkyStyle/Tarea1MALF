@@ -1,6 +1,7 @@
 package Tarea1P3;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MinimizadorAFD {
 
@@ -12,14 +13,17 @@ public class MinimizadorAFD {
     private String estFinales;
 
     //Variables a Utilizar
+    private String nombreAutomata;
     private ArrayList<String> estados;
+    private ArrayList<String> estadosMinimizados;
     private ArrayList<String> sigma;
     private ArrayList<Transicion> transiciones;
     private String estadoInicial;
     private ArrayList<String> estadosFinales;
     private int tabla[][];
 
-    public MinimizadorAFD(String estados, String sigma, ArrayList<String> transiciones, String estadoInicial, String estadosFinales) {     
+    public MinimizadorAFD(String nombre, String estados, String sigma, ArrayList<String> transiciones, String estadoInicial, String estadosFinales) {     
+        this.nombreAutomata = nombre;
         this.est = estados;
         this.sig = sigma;
         this.trans = transiciones;
@@ -27,11 +31,15 @@ public class MinimizadorAFD {
         this.estFinales = estadosFinales;
 
         this.estados = new ArrayList<String>();
+        this.estadosMinimizados = new ArrayList<String>();
         this.sigma = new ArrayList<String>();
         this.transiciones = new ArrayList<Transicion>();
         this.estadosFinales = new ArrayList<String>();        
     }
 
+    /**
+     * Metodo que procesa los datos obtenidos de la entrada estandar.
+     */
     public void procesarDatos(){
 
         //separamos la linea de los estados y los almacenamos individualmente
@@ -96,6 +104,9 @@ public class MinimizadorAFD {
         }
     }
 
+    /**
+     * Metodo que toma los datos del Automata Finito Determinista para minimizarlo utilizando el metodo de llenado de tablas.
+     */
     public void minimizar(){
 
         //Con la tabla inicializada con el tamaño correcto y los distintos datos del AFD, podemos comenzar a Minimizar
@@ -106,42 +117,6 @@ public class MinimizadorAFD {
 
         //Paso 1: Marcar todos aquellos pares/transiciones que contengar un Estado Final.
 
-        // for(int i = 0; i < this.estadosFinales.size() ; i++){
-        //     String fin = this.estadosFinales.get(i);
-        //     int pos1 = this.estados.indexOf(fin);                        
-        //     for(int j = 0; j < this.transiciones.size(); j++){
-        //         // Transicion t = this.transiciones.get(j);                
-        //         // if(t.getEstado1().equals(fin)){ 
-        //         //     int pos2 = this.estados.indexOf(t.getEstado2());
-        //         //     if( pos1 > pos2){
-        //         //         this.tabla[pos1][pos2] = 1;
-        //         //     }
-        //         //     else if(pos2 > pos1){
-        //         //         this.tabla[pos2][pos1] = 1;
-        //         //     }  
-        //         // }
-        //         // else if(t.getEstado2().equals(fin)){
-        //         //     int pos2 = this.estados.indexOf(t.getEstado1());
-        //         //     if(pos1 > pos2){
-        //         //         this.tabla[pos1][pos2] = 1;
-        //         //     }
-        //         //     else if(pos2 > pos1){
-        //         //         this.tabla[pos2][pos1] = 1;
-        //         //     }                    
-        //         // }
-        //         if( verificarAceptacion(i, j)){
-        //             this.tabla[i][j] = 1;
-        //         }
-        //     }
-        //     // for(int x = 0; x < this.tabla.length; x++){
-        //     //     for(int y = 0; y < x ; y++){
-        //     //         if(x > pos1){
-        //     //             this.tabla[x][pos1] = 1;
-        //     //         }
-        //     //     }
-        //     // }
-        // }
-
         for(int i = 0; i < this.tabla.length; i++){
             for(int j = 0; j < i; j++){
                 if( verificarAceptacion(i, j)){
@@ -149,8 +124,6 @@ public class MinimizadorAFD {
                 }
             }            
         }
-
-
         //Paso 2: Verificar aquellos pares/transiciones que no estan marcados (q1,q2).
         // Marcamos el par en cuestion si existe un par [δ(q1, x),δ(q2,x)] que si este marcado para un determinado valor de entrada x.
         
@@ -161,27 +134,125 @@ public class MinimizadorAFD {
                     String estado2 = this.estados.get(j);
                     verificarPar(estado1,estado2);
                 }
-                // System.out.print(this.tabla[i][j]);
-                // System.out.print(" ");
             }
-            //System.out.println();
-        }
-        for(int i = 0; i < this.tabla.length; i++){
-            for(int j = 0; j < i; j++){
-                System.out.print(this.tabla[i][j]);
-                System.out.print(" ");
-            }
-            System.out.println();
         }
 
         //Paso 3: Combinar los pares no distinguibles en bloques de estado, donde los estados (2 o mas) en el mismo bloque son equivalentes.
 
+        ArrayList<Integer> revisados = new ArrayList<>();
+        for(int i = 0; i < this.estados.size(); i++){            
+            if(!revisados.contains(i)){
+                String estado =this.estados.get(i);
+                ArrayList<String> iguales = new ArrayList<>();
 
+                //Buscamos aquellos estados que son iguales y los guardamos en un arreglo
+                for(int j = 0; j < this.tabla.length; j++){
+                    for(int k = 0; k < j; k++){
+                        if( i == j && !revisados.contains(k)){
+                            if(this.tabla[j][k] == 0 ){
+                                iguales.add( this.estados.get(k));                            
+                            }
+                        }
+                        else if (i == k && !revisados.contains(j)){
+                            if(this.tabla[j][k] == 0 ){
+                                iguales.add(this.estados.get(j));                               
+                            }
+                        }
+                    }
+                }            
+                //Si es que encontramos pares iguales, entonces creamos un estados que los represente a todos juntos
+                //Unimos los estados
+                if(iguales.size() != 0){                                
+                    iguales.add(this.estados.get(i));
+                    Collections.sort(iguales);
+                    estado = "";
+                    for(String s: iguales){
+                        revisados.add(this.estados.indexOf(s));
+                        if(!estado.equals("")){
+                            estado = estado+"|"+s;
+                        }
+                        else{
+                            estado = s;
+                        }
+                    }
+                    //Como tenemos estamos que se hicieron uno solo, debemos cambiar las transiciones que estan relacionadas.
+                    for(int j = 0; j < this.transiciones.size(); j++){
+                        Transicion t = this.transiciones.get(j);
+                        for(String s:iguales){
+                            if(t.getEstado1().equals(s)){
+                                t.setEstado1(estado);
+                            }                       
+                            if(t.getEstado2().equals(s)){
+                                t.setEstado2(estado);
+                            }
+                        }
+                    }
+                    //Si es estado inicial era uno de los estados que se combinaron, entonces este nuevo estado sera el nuevo estado inicial
+                    if(iguales.contains(this.estadoInicial)){
+                        this.estadoInicial = estado;
+                    }                    
+                    this.estadosMinimizados.add(estado); 
+                }
+                else{
+                    this.estadosMinimizados.add(estado);
+                    revisados.add(this.estados.indexOf(estado));
+                }
+            }
+        }
 
-        //Paso 4: Mostrar el AFD Minimizado (con el formato correspondiente)
+        //Luego de juntar todos los pares de estados, debemos eliminar las transiciones repetidas que se generaron.
+        for(int i = 0; i <this.transiciones.size();i++){
+            Transicion t1 = this.transiciones.get(i);
+            for(int j = i+1; j < this.transiciones.size(); j++){
+                Transicion t2 = this.transiciones.get(j);
 
+                if( t1.getEstado1().equals(t2.getEstado1()) && t1.getEstado2().equals(t2.getEstado2()) && t1.getEntrada().equals(t2.getEntrada()) ){
+                    this.transiciones.remove(j);
+                    j--;
+                }
+            }
+        }
+
+        //Paso 4: Mostrar el AFD Minimizado (con el formato correspondiente) 
+        
+        //Mostramos el nombre o identificador del automata minimizado
+        this.nombreAutomata = this.nombreAutomata.replaceFirst("AFD","AFDM");
+        System.out.println(this.nombreAutomata);
+        //Mostramos el alfabeto
+        String alfabeto = "K={";
+        for(int i = 0; i < this.estadosMinimizados.size(); i++){
+            if(i != this.estadosMinimizados.size()-1){
+                alfabeto = alfabeto+this.estadosMinimizados.get(i)+",";
+            }
+            else{
+                alfabeto = alfabeto+this.estadosMinimizados.get(i)+"}";
+            }
+            
+        }
+        System.out.println(alfabeto);
+        //Mostramos los valores de delta, es decir, las transiciones entre estados.
+        System.out.println("delta:");
+        for(Transicion s: this.transiciones){
+            System.out.println(s.toString());
+        }
+        //Mostramos el estado Inicial
+        System.out.println("s="+this.estadoInicial);
+        String finales = "F={";
+        for(int i = 0; i < this.estadosFinales.size(); i++){
+            if(i != this.estadosFinales.size()-1){
+                finales = finales+this.estadosFinales.get(i)+",";
+            }
+            else{
+                finales = finales+this.estadosFinales.get(i)+"}";
+            }
+        }
+        //Mostramos el estado Final.
+        System.out.println(finales);
     }
 
+    /**
+     * Metodo que nos permite saber si, en un par de estados, uno de ellos es un estado de aceptacion o estado final.
+     */
     public boolean verificarAceptacion(int p1, int p2){
 
         String estado1 = this.estados.get(p1);
@@ -196,12 +267,14 @@ public class MinimizadorAFD {
         return false;        
     }
 
+    /**
+     * Metodo que nos permite verificar si un par de estados es distinguible o no.
+     */
     public void verificarPar(String e1, String e2){
                 
         int cantSigma = this.sigma.size();
         int pos1 = this.estados.indexOf(e1);
-        int pos2 = this.estados.indexOf(e2);
-        System.out.println(pos1 +" "+ pos2);
+        int pos2 = this.estados.indexOf(e2);        
         
         for(int s = 0; s < cantSigma; s++){
             String sig = this.sigma.get(s);
@@ -210,9 +283,7 @@ public class MinimizadorAFD {
             Transicion t2 = this.transiciones.get(pos2*cantSigma+s);
 
             String estado1 = t1.getEstado2();
-            String estado2 = t2.getEstado2();
-
-            System.out.println(estado1 + " "+ estado2);
+            String estado2 = t2.getEstado2();            
 
             int p1 = this.estados.indexOf(estado1);
             int p2 = this.estados.indexOf(estado2);
@@ -242,6 +313,11 @@ public class MinimizadorAFD {
         
     }
 
+
+    /**
+     * Metodo utilizado para confirmar que los datos ingresados se procesaron bien
+     * Solo se utilizo en la fase de pruebas, en la ejecucion de la minimizacion del automata no se utiliza.
+     */
     public void test(){
 
         System.out.println("Prueba jeje");
