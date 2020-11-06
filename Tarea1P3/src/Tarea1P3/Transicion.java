@@ -38,6 +38,6 @@ public class Transicion {
     
     @Override
     public String toString() {
-        return "Transicion [entrada=" + entrada + ", estado1=" + estado1 + ", estado2=" + estado2 + "]";
+        return "("+this.estado1+","+this.entrada+","+this.estado2+")";
     }
 }

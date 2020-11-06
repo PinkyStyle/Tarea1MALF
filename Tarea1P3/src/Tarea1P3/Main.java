@@ -10,7 +10,7 @@ public class Main {
         //Para ejecutar en la powershell: cmd /c 'java -jar Tarea1P3.jar < prueba.txt'
 
         Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
+        String nombre = scanner.nextLine();
         String estados = scanner.nextLine();
         String sigma = scanner.nextLine();
 
@@ -26,18 +26,9 @@ public class Main {
         String estadoInicio = trans;
         String estadosFinales = scanner.nextLine();
         
-        
-
-        // System.out.println(estados);
-        // System.out.println(sigma);
-        // for(int i = 0; i < transiciones.size(); i++){
-        //     System.out.println(transiciones.get(i));
-        // }
-        // System.out.println(estadoInicio);
-        // System.out.println(estadosFinales);
         scanner.close();
 
-        MinimizadorAFD min = new MinimizadorAFD(estados, sigma, transiciones, estadoInicio, estadosFinales);
+        MinimizadorAFD min = new MinimizadorAFD(nombre, estados, sigma, transiciones, estadoInicio, estadosFinales);
         min.procesarDatos();
         //min.test();
         min.minimizar();
