@@ -5,12 +5,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        //Para ejecutar en la powershell: cmd /c 'java -jar Tarea1P3.jar < prueba.txt'
+        //Para ejecutar en la powershell: cmd /c 'java -jar Tarea1P2.jar < prueba.txt'
 
             Scanner scanner = new Scanner(System.in);
             scanner.nextLine();
@@ -31,7 +33,7 @@ public class Main {
 
             scanner.close();
 
-            AFD a = new AFD(estadoInicio, sigma, estados);
+            AFD a = new AFD(transiciones, sigma, estados);
 
 
             WriteFile salida = new WriteFile(args[1], true);

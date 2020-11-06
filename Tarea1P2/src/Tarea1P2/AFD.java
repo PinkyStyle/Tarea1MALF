@@ -7,6 +7,11 @@ public class AFD {
     private ArrayList<String> sigmaAFD;
     private ArrayList<String> estadosAFD;
 
+    private String sigmaS; //sigma String
+    private String estadosS; //estados en String
+
+
+    private ArrayList<String> deltaS;
     private ArrayList<Transicion> deltaAFD;
 
 
@@ -16,19 +21,59 @@ public class AFD {
 
 
 
-    public AFD(ArrayList<Transicion> delta, ArrayList<String> s, ArrayList<String> e) {
+    public AFD(ArrayList<String> delta, String sigma, String estados) {
         this.deltaAFD = new ArrayList<>();
-        this.deltaAFD = delta;
+        this.deltaS = delta;
         this.sigmaAFD = new ArrayList<>();
-        this.sigmaAFD = s;
+        this.sigmaS = sigma;
         this.conecciones_de_cada_estado = new ArrayList<>();
         this.estados = new ArrayList<>();
         this.estadosAFD = new ArrayList<>();
-        this.estadosAFD = e;
+        this.estadosS = estados;
+
+        this.procesarSigma();
+        this.procesarEstados();
+        this.procesarTransicion();
 
         this.print_delta();
         this.determinarConeccionesDeCadaEstado();
         this.print_coneccionesDeCadaEstado();
+
+    }
+
+
+    public void procesarSigma() {
+
+        this.sigmaS = this.sigmaS.split("=")[1];
+        this.sigmaS = this.sigmaS.replaceAll("[\p{Ps}\p{Pe}]", "");
+        aux = this.sigmaS.split(",");
+        for(int i = 0; i < aux.length; i++) {
+            this.sigmaAFD.add(aux[i]);
+        }
+
+    }
+
+    public void procesarEstados() {
+        this.estadosS = this.estadosS.split("=")[1];
+        this.estadosS = this.estadosS.replaceAll("[\p{Ps}\p{Pe}]", "");
+        String[] aux = this.estadosS.split(",");
+        for(int i = 0; i < aux.length; i++){
+            this.estadosAFD.add(aux[i]);
+        }
+    }
+
+    public void procesarTransicion() {
+        for(int i = 0; i < this.deltaS.size() ; i++){
+            //Obtenemos el string perteneciente a una transicion.
+            String t = this.deltaS.get(i);
+            //Eliminamos los Parentesis a ambos lados
+            t = t.replaceAll("[\p{Ps}\p{Pe}]", "");
+            //Eliminamos las comas y separamos, obteniendo cada dato por separado
+            String[] datos = t.split(",");
+            //Con los datos obtenidos, creamos una transicion y la almacenamos en un arreglo para utilizarlo despues
+            Transicion transicion = new Transicion(datos[0],datos[1],datos[2]);
+            this.deltaAFD.add(transicion);
+        }
 
     }
 

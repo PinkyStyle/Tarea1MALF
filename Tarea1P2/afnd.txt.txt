@@ -1,0 +1,9 @@
+AFND M:
+K={q0,q1,q2,q3}
+Sigma={a,b}
+Delta:
+(q0,a,q1)
+(q1,_,q2)
+(q2,b,q3)
+s=q0
+F={q3}

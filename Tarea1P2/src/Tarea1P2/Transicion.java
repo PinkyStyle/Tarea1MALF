@@ -7,7 +7,7 @@ public class Transicion {
     private String union;
 
 
-    public Transicion(String primero, String segundo, String union) {
+    public Transicion(String primero, String union, String segundo) {
         this.primero = primero;
         this.segundo = segundo;
         this.union = union;
