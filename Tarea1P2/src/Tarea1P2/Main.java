@@ -33,36 +33,22 @@ public class Main {
 
             scanner.close();
 
+
             AFD a = new AFD(transiciones, sigma, estados);
 
+            System.out.println("AFD M:");
+            System.out.println(a.getEstadosAFD());
+            System.out.println(a.getSigmaAFD());
+            System.out.println("delta:");
+            a.print_delta();
+            a.print_coneccionesDeCadaEstado();
+            System.out.println(estadoInicio);
+            System.out.println(estadosFinales);
 
-            WriteFile salida = new WriteFile(args[1], true);
-            salida.escribiraarchivo(afd.print_delta() + " " + afd.print_coneccionesDeCadaEstado());
+
 
 
     }
 
-    public static class WriteFile {
-        private String path;
-        private boolean append = false;
-
-        public WriteFile(String path) {
-            this.path = path;
-        }
-
-        public WriteFile(String path, boolean append) {
-            this.path = path;
-            this.append = append;
-        }
-
-        public void escribiraarchivo(String texto) throws IOException {
-            FileWriter write = new FileWriter(this.path, this.append);
-            PrintWriter linea = new PrintWriter(write);
-
-            linea.printf("%s" + "%n", texto);
-
-            linea.close();
-
-        }
-    }
+  
 }

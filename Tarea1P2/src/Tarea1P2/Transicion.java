@@ -1,5 +1,6 @@
 package Tarea1P2;
 
+
 public class Transicion {
 
     private String primero;

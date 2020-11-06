@@ -1,6 +1,6 @@
 package Tarea1P2;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 
 public class AFD {
@@ -12,11 +12,10 @@ public class AFD {
 
 
     private ArrayList<String> deltaS;
-    private ArrayList<Transicion> deltaAFD;
+    public ArrayList<Transicion> deltaAFD;
 
 
 
-    private ArrayList<ArrayList<String>> estados;
     private ArrayList<ArrayList<String>> conecciones_de_cada_estado;
 
 
@@ -27,7 +26,6 @@ public class AFD {
         this.sigmaAFD = new ArrayList<>();
         this.sigmaS = sigma;
         this.conecciones_de_cada_estado = new ArrayList<>();
-        this.estados = new ArrayList<>();
         this.estadosAFD = new ArrayList<>();
         this.estadosS = estados;
 
@@ -35,9 +33,8 @@ public class AFD {
         this.procesarEstados();
         this.procesarTransicion();
 
-        this.print_delta();
+
         this.determinarConeccionesDeCadaEstado();
-        this.print_coneccionesDeCadaEstado();
 
     }
 
@@ -45,8 +42,8 @@ public class AFD {
     public void procesarSigma() {
 
         this.sigmaS = this.sigmaS.split("=")[1];
-        this.sigmaS = this.sigmaS.replaceAll("[\p{Ps}\p{Pe}]", "");
-        aux = this.sigmaS.split(",");
+        this.sigmaS = this.sigmaS.replaceAll("[\\p{Ps}\\p{Pe}]", "");
+        String[] aux = this.sigmaS.split(",");
         for(int i = 0; i < aux.length; i++) {
             this.sigmaAFD.add(aux[i]);
         }
@@ -55,7 +52,7 @@ public class AFD {
 
     public void procesarEstados() {
         this.estadosS = this.estadosS.split("=")[1];
-        this.estadosS = this.estadosS.replaceAll("[\p{Ps}\p{Pe}]", "");
+        this.estadosS = this.estadosS.replaceAll("[\\p{Ps}\\p{Pe}]", "");
         String[] aux = this.estadosS.split(",");
         for(int i = 0; i < aux.length; i++){
             this.estadosAFD.add(aux[i]);
@@ -67,7 +64,7 @@ public class AFD {
             //Obtenemos el string perteneciente a una transicion.
             String t = this.deltaS.get(i);
             //Eliminamos los Parentesis a ambos lados
-            t = t.replaceAll("[\p{Ps}\p{Pe}]", "");
+            t = t.replaceAll("[\\p{Ps}\\p{Pe}]", "");
             //Eliminamos las comas y separamos, obteniendo cada dato por separado
             String[] datos = t.split(",");
             //Con los datos obtenidos, creamos una transicion y la almacenamos en un arreglo para utilizarlo despues
@@ -169,5 +166,13 @@ public class AFD {
 
     public void setDeltaAFD(ArrayList<Transicion> deltaAFD) {
         this.deltaAFD = deltaAFD;
+    }
+
+    public ArrayList<String> getEstadosAFD() {
+        return estadosAFD;
+    }
+
+    public void setEstadosAFD(ArrayList<String> estadosAFD) {
+        this.estadosAFD = estadosAFD;
     }
 }
