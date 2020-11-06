@@ -13,7 +13,7 @@ public class Main {
     pf.InfijaAPostfija(expresionRegular);
     
     AFND afnd = new AFND();
-    System.out.println(pf.getSalida());
+    //System.out.println(pf.getSalida());
     afnd.crearAFND(pf.getSalida());    
     afnd.mostrarAFND();    
     }

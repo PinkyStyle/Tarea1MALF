@@ -240,9 +240,11 @@ public class AFND {
                 }                
                 this.transiciones.add(new Transicion("q"+this.numEstado,"_",sinEntrada1.getInicio()));
                 this.transiciones.add(new Transicion("q"+this.numEstado,"_",sinEntrada2.getInicio()));
+                this.estados.add("q"+this.numEstado);
                 this.numEstado++;
                 this.transiciones.add(new Transicion(sinSalida1.getTermino(),"_","q"+this.numEstado));
                 this.transiciones.add(new Transicion(sinSalida2.getTermino(),"_","q"+this.numEstado));
+                this.estados.add("q"+this.numEstado);
                 this.numEstado++;               
             }      
         }     
