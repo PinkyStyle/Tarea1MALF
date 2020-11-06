@@ -1,11 +1,6 @@
 package Tarea1P2;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Scanner;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Main {
@@ -37,13 +32,13 @@ public class Main {
             AFD a = new AFD(transiciones, sigma, estados);
 
             System.out.println("AFD M:");
-            System.out.println(a.getEstadosAFD());
-            System.out.println(a.getSigmaAFD());
+            System.out.println(a.getEstadosAFND());
+            System.out.println(a.getSigmaAFND());
             System.out.println("delta:");
+
             a.print_delta();
-            a.print_coneccionesDeCadaEstado();
-            System.out.println(estadoInicio);
-            System.out.println(estadosFinales);
+            System.out.println("s=" + a.getEstadoInicialAFD());
+            System.out.println("F="+ a.getEstadosFinalesAFD());
 
 
 
