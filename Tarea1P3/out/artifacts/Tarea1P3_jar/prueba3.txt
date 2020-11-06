@@ -1,0 +1,16 @@
+AFD A:
+K={A,B,C,D,E}
+Sigma={0,1}
+delta:
+(A,0,A)
+(A,1,B)
+(B,0,A)
+(B,1,B)
+(C,0,D)
+(C,1,E)
+(D,0,D)
+(D,1,E)
+(E,0,C)
+(E,1,E)
+s=A
+F={A,C,D}
