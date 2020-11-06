@@ -69,46 +69,6 @@ public class AFD {
     }
 
 
-    public void crearEstados() {
-        for (int i = 0; i < this.estadosAFD.size(); i++) {
-            if (i==-1) {
-                ArrayList<String> ep = new ArrayList<>();
-                ep.add("_");
-                this.estados.add(ep);
-            }
-            else {
-                ArrayList<String> nuevo = new ArrayList<>();
-                nuevo.add(this.estadosAFD.get(i));
-                this.estados.add(nuevo);
-            }
-        }
-    }
-
-    public void llenarEstadosIniciales() {
-        for (int i = 0; i <this.estados.size() ; i++) {
-            String s= null;
-            int cont=0;
-            for (int j = 0; j < this.deltaAFD.size() ; j++) {
-                boolean cond = false;
-                if (this.deltaAFD.get(i).getUnion().equals(this.estados.get(i).get(0)) && !this.deltaAFD.get(j).getPrimero().equals(s) || this.deltaAFD.get(j).getUnion() .equals(this.estados.get(i).get(0)) && cont ==0 ) {
-                    this.estados.get(i).add(this.deltaAFD.get(j).getSegundo());
-                    String aux = null;
-                    s = this.deltaAFD.get(j).getSegundo();
-                    int cont2=0;
-                    for (int k = 0; k < this.deltaAFD.size() ; k++) {
-                        if (cont2==0) {
-                            if (this.deltaAFD.get(k).getUnion().equals("_") && this.deltaAFD.get(k).getPrimero().equals(s)) {
-                                aux = this.deltaAFD.get(k).getSegundo();
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
-
-
-    }
 
     public void determinarConeccionesDeCadaEstado() {
         for (int i = 0; i < this.deltaAFD.size(); i++) {

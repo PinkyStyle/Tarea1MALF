@@ -9,30 +9,35 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
-        try {
-            File archivo = new File(args[0]);
-            Scanner lector = new Scanner(archivo);
-            AFD afd = new AFD();
 
-            while (lector.hasNextLine()) {
+        //Para ejecutar en la powershell: cmd /c 'java -jar Tarea1P3.jar < prueba.txt'
 
+            Scanner scanner = new Scanner(System.in);
+            scanner.nextLine();
+            String estados = scanner.nextLine();
+            String sigma = scanner.nextLine();
 
+            ArrayList<String> transiciones = new ArrayList<>();
+            String trans = "";
+            if(scanner.nextLine().equals("delta:")){
+                trans = scanner.nextLine();
+                while(trans.startsWith("(")){
+                    transiciones.add(trans);
+                    trans = scanner.nextLine();
+                }
             }
+            String estadoInicio = trans;
+            String estadosFinales = scanner.nextLine();
 
-            lector.close();
+            scanner.close();
+
+            AFD a = new AFD(estadoInicio, sigma, estados);
+
 
             WriteFile salida = new WriteFile(args[1], true);
             salida.escribiraarchivo(afd.print_delta() + " " + afd.print_coneccionesDeCadaEstado());
 
 
-        }
-
-
-        catch (Exception e) {
-            System.out.println("No se encontro el archivo afnd.txt");
-            e.printStackTrace();
-        }
     }
 
     public static class WriteFile {
