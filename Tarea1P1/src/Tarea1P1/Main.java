@@ -6,6 +6,7 @@ public class Main {
     // write your code here
     Postfijo pf = new Postfijo();
     AFND afnd = new AFND();
+    System.out.println(pf.getSalida());
     afnd.crearAFND(pf.getSalida());    
     afnd.imprimirAFND();
     }

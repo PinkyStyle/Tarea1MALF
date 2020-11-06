@@ -309,9 +309,38 @@ public class AFND {
     }    
 
     public void imprimirAFND() {
+        System.out.println("AFND M: ");
+
+        System.out.print("K={");
+        for(int i=0; i < this.estados.size(); i++){
+
+            if(i < this.estados.size()-1){
+                System.out.print(this.estados.get(i)+",");
+            }
+            else{
+                System.out.print(this.estados.get(i));
+            }
+        }
+        System.out.println("}");
+
+        System.out.print("Sigma={");
+        for(int i=0; i < this.alfabeto.size(); i++){
+            if(i < this.alfabeto.size()-1){
+                System.out.print(this.alfabeto.get(i)+",");
+            }
+            else{
+                System.out.print(this.alfabeto.get(i));
+            }
+        }
+        System.out.println("}");
+
+        System.out.println("Delta:");
         for (int i = 0; i < this.transiciones.size(); i++) {
-            System.out.println(this.transiciones.get(i).getInicio() + "," + this.transiciones.get(i).getUnion() + "," + this.transiciones.get(i).getTermino());
-        }    
+            System.out.println("("+this.transiciones.get(i).getInicio() + "," + this.transiciones.get(i).getUnion() + "," + this.transiciones.get(i).getTermino()+")");
+        }
+
+        System.out.println("s="+this.estados.get(0));
+        System.out.println("F={}");
     }
 
     public void Concatenacion(){

@@ -14,7 +14,7 @@ public class Postfijo {
         this.salida = new ArrayList<>();
         this.operadores = new Stack<>();
         this.Precedencias = new HashMap<>();
-        this.InfijaAPostfija("a.b*");
+        this.InfijaAPostfija("((a|(b*.c))");
     }
 
     public int getPrecedencia(String s){
