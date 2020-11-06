@@ -1,9 +1,7 @@
 package Tarea1P2;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
 
 public class AFD {
     private ArrayList<String> sigmaAFND; //el sigma que se obtiene del AFND
@@ -58,10 +56,6 @@ public class AFD {
         this.deltaAFD = new ArrayList<>();
         this.contador=0;
         this.AFND_a_AFD();
-
-
-
-
 
     }
 
@@ -205,7 +199,8 @@ public class AFD {
                     tabla.get(letra).get(i).add(this.buscarEstado(this.tabla.get(letra).get(i)));
                 }
                 int pos = tabla.get(letra).get(i).size()-1;
-                this.deltaAFD.add(new Transicion(estado_de_afd.get(estado_de_afd.size()-1),letra,tabla.get(letra).get(i).get(pos)));
+                Transicion t = new Transicion(estado_de_afd.get(estado_de_afd.size()-1),letra,tabla.get(letra).get(i).get(pos));
+                this.deltaAFD.add(t);
             }
 
         }
@@ -258,6 +253,7 @@ public class AFD {
 
 
 
+    //imprimimos el AFD resultante
     public void print_delta() {
         for (int i = 0; i < this.deltaAFD.size(); i++) {
             System.out.println("(" + this.deltaAFD.get(i).getPrimero() + ","+this.deltaAFD.get(i).getUnion()+"," + this.deltaAFD.get(i).getSegundo()+")");
