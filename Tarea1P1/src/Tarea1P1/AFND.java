@@ -303,18 +303,27 @@ public class AFND {
 
     public void mostrarAFND() {
         System.out.println("AFND M:");
-        String alfabeto = "K={";
+        String estado = "K={";
         for(int i = 0; i < this.estados.size(); i++){
             if(i != this.estados.size()-1){
-                alfabeto = alfabeto+this.estados.get(i)+",";
+                estado = estado+this.estados.get(i)+",";
             }
             else{
-                alfabeto = alfabeto+this.estados.get(i)+"}";
+                estado = estado+this.estados.get(i)+"}";
             }
-            
         }
-        System.out.println(alfabeto);
-        System.out.println("delta:");
+        System.out.println(estado);
+        System.out.print("Sigma={");
+        for(int i=0; i < this.alfabeto.size(); i++){
+            if(i < this.alfabeto.size()-1){
+                System.out.print(this.alfabeto.get(i)+",");
+            }
+            else{
+                System.out.print(this.alfabeto.get(i));
+            }
+        }
+        System.out.println("}");
+        System.out.println("Delta:");
         for(Transicion t: this.transiciones){
             System.out.println(t.toString());
         }
