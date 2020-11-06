@@ -36,5 +36,8 @@ public class Transicion {
         this.termino = termino;
     }
 
-    
+    @Override
+    public String toString() {
+        return "("+this.inicio+","+this.union+","+this.termino+")";
+    }
 }
